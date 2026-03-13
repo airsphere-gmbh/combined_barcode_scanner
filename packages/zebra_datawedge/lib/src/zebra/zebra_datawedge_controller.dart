@@ -41,7 +41,7 @@ class ZebraDataWedgeController {
         });
         return completer.future
             .whenComplete(() => subscription.cancel())
-            .timeout(Duration(seconds: 1), onTimeout: () => false);
+            .timeout(Duration(minutes: 3), onTimeout: () => false);
       }
 
       return _supported = await hasProfiles();
