@@ -20,18 +20,19 @@ class ZebraDataWedgeController {
   bool _dataWedgeInitialied = false;
   late List<dynamic> profiles;
   bool? _supported;
+  int _tries = 0;
   ZebraDataWedgeController();
 
   Future<bool> get isControllerSupported async {
     if (_supported != null) return _supported!;
 
     if ((!kIsWeb && Platform.isAndroid)) {
-      if (!_dataWedgeInitialied) {
-        await _dataWedge.initialize();
-        await _dataWedge.createDefaultProfile(profileName: "Default");
-        _dataWedge.requestProfiles();
-      }
-      Future<bool> hasProfiles() {
+      Future<bool> hasProfiles() async {
+        if (!_dataWedgeInitialied) {
+          await _dataWedge.initialize();
+          await _dataWedge.createDefaultProfile(profileName: "Default");
+          _dataWedge.requestProfiles();
+        }
         final completer = Completer<bool>();
         final subscription = _dataWedge.onScannerEvent.listen((event) {
           if (event.command == DatawedgeApiTargets.getProfiles.value) {
@@ -41,7 +42,10 @@ class ZebraDataWedgeController {
         });
         return completer.future
             .whenComplete(() => subscription.cancel())
-            .timeout(Duration(minutes: 3), onTimeout: () => false);
+            .timeout(const Duration(seconds: 10), onTimeout: () async {
+          if (_tries++ > 18) return false;
+          return await hasProfiles();
+        });
       }
 
       return _supported = await hasProfiles();
