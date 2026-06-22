@@ -28,6 +28,13 @@ class ZebraBarcodeScanner implements BarcodeScanner {
 
   ZebraBarcodeScanner(this.profileName);
 
+  void configureContoller(
+      {Duration hardwareTimout = const Duration(seconds: 10),
+      int retries = 18}) {
+    _controller.hardwareTimeout = hardwareTimout;
+    _controller.maxTries = retries;
+  }
+
   @override
   Widget? buildUI(
     ScannerConfiguration configuration,
@@ -74,7 +81,6 @@ class ZebraBarcodeScanner implements BarcodeScanner {
     },
   );
 }
-
 
 class _ScannerWrapper implements ScannerCallBack {
   final ValueChanged<BarcodeScanResult> onScan;
@@ -162,4 +168,3 @@ class _ZebraController extends BarcodeScannerController {
     }
   }
 }
-

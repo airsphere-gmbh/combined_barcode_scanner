@@ -19,6 +19,8 @@ class ZebraDataWedgeController {
   FlutterDataWedge _dataWedge = FlutterDataWedge();
   bool _dataWedgeInitialied = false;
   late List<dynamic> profiles;
+  Duration hardwareTimeout = const Duration(seconds: 10);
+  int maxTries = 18;
   bool? _supported;
   int _tries = 0;
   ZebraDataWedgeController();
@@ -27,25 +29,29 @@ class ZebraDataWedgeController {
     if (_supported != null) return _supported!;
 
     if ((!kIsWeb && Platform.isAndroid)) {
-      Future<bool> hasProfiles() async {
-        if (!_dataWedgeInitialied) {
-          await _dataWedge.initialize();
-          await _dataWedge.createDefaultProfile(profileName: "Default");
-          _dataWedge.requestProfiles();
+      final completer = Completer<bool>();
+      var completed = false;
+      final subscription = _dataWedge.onScannerEvent.listen((event) {
+        if (event.command == DatawedgeApiTargets.getProfiles.value) {
+          profiles = event.resultInfo!['profiles'] as List<dynamic>;
+          completer.complete(profiles.isNotEmpty);
         }
-        final completer = Completer<bool>();
-        final subscription = _dataWedge.onScannerEvent.listen((event) {
-          if (event.command == DatawedgeApiTargets.getProfiles.value) {
-            profiles = event.resultInfo!['profiles'] as List<dynamic>;
-            completer.complete(profiles.isNotEmpty);
+      });
+      Future<bool> hasProfiles() async {
+        while (!completed && _tries++ < maxTries) {
+          if (!_dataWedgeInitialied) {
+            await _dataWedge.initialize();
+            await _dataWedge.createDefaultProfile(profileName: "Default");
+            _dataWedge.requestProfiles();
           }
-        });
-        return completer.future
-            .whenComplete(() => subscription.cancel())
-            .timeout(const Duration(seconds: 10), onTimeout: () async {
-          if (_tries++ > 18) return false;
-          return await hasProfiles();
-        });
+
+          completer.future.whenComplete(() {
+            completed = true;
+            return subscription.cancel();
+          });
+          await Future.delayed(hardwareTimeout);
+        }
+        return completed;
       }
 
       return _supported = await hasProfiles();
