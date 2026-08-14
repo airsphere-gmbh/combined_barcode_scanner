@@ -21,10 +21,10 @@ packages:
     dependency: transitive
     description:
       name: characters
-      sha256: f71061c654a3380576a52b451dd5532377954cf9dbd272a78fc8479606670803
+      sha256: faf38497bda5ead2a8c7615f4f7939df04333478bf32e4173fcb06d428b5716b
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.4.1"
   clock:
     dependency: transitive
     description:
@@ -44,10 +44,11 @@ packages:
   combined_barcode_scanner:
     dependency: "direct main"
     description:
-      name: combined_barcode_scanner
-      sha256: b58601ca69034af5c695e92ee933e5f975e9671ae8a382a79c0af9f71cb4a005
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: main
+      resolved-ref: a91197835ea433d319c4e5d7f1bc954d79983ea1
+      url: "https://github.com/airsphere-gmbh/combined_barcode_scanner.git"
+    source: git
     version: "1.2.0"
   fake_async:
     dependency: transitive
@@ -79,18 +80,10 @@ packages:
     dependency: "direct main"
     description:
       name: honeywell_scanner
-      sha256: "622bdc184d45ae6f0f67a3136c32bb128201ff4d24514d364fa65d1a7453d7cb"
+      sha256: "05315921c18bbec6d8dde65d2f68388d739b3fe5b573533c459283017f711bb3"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
-  icapps_torch_compat:
-    dependency: transitive
-    description:
-      name: icapps_torch_compat
-      sha256: "6b3fe04a2bb0a7018333ee2a54a060d03fc9b43a3f0ca5f5706bbcf900b6940d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.1"
+    version: "8.0.1"
   leak_tracker:
     dependency: transitive
     description:
@@ -127,26 +120,26 @@ packages:
     dependency: transitive
     description:
       name: matcher
-      sha256: dc58c723c3c24bf8d3e2d3ad3f2f9d7bd9cf43ec6feaa64181775e60190153f2
+      sha256: "31bd099b47c10cd1aeb55146a2d46ce0277630ecef3f7dae54ad7873f36696cd"
       url: "https://pub.dev"
     source: hosted
-    version: "0.12.17"
+    version: "0.12.20"
   material_color_utilities:
     dependency: transitive
     description:
       name: material_color_utilities
-      sha256: f7142bb1154231d7ea5f96bc7bde4bda2a0945d2806bb11670e30b850d56bdec
+      sha256: "9c337007e82b1889149c82ed242ed1cb24a66044e30979c44912381e9be4c48b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.11.1"
+    version: "0.13.0"
   meta:
     dependency: transitive
     description:
       name: meta
-      sha256: e3641ec5d63ebf0d9b41bd43201a66e3fc79a65db5f61fc181f04cd27aab950c
+      sha256: "307249ce4ff29d58a18e97f6345f539382eb9c9c29ecda628900f31de0443dd9"
       url: "https://pub.dev"
     source: hosted
-    version: "1.16.0"
+    version: "1.19.0"
   path:
     dependency: transitive
     description:
@@ -204,18 +197,18 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: "522f00f556e73044315fa4585ec3270f1808a4b186c936e612cab0b565ff1e00"
+      sha256: "2a122cbe059f8b610d3a5415f42e255b6c17b1f21eee1d960f31080237fb4f11"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.6"
+    version: "0.7.12"
   vector_math:
     dependency: transitive
     description:
       name: vector_math
-      sha256: d530bd74fea330e6e364cda7a85019c434070188383e1cd8d9777ee586914c5b
+      sha256: f36f9f3be64c6198714492bb455c11056e33e2f85d9a0b676a48301e44fdcf47
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.4.2"
   vm_service:
     dependency: transitive
     description:
@@ -225,5 +218,5 @@ packages:
     source: hosted
     version: "14.2.5"
 sdks:
-  dart: ">=3.8.0-0 <4.0.0"
+  dart: ">=3.11.0-0 <4.0.0"
   flutter: ">=3.18.0-18.0.pre.54"

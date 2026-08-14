@@ -16,7 +16,7 @@ dependencies:
       ref: main
   flutter:
     sdk: flutter
-  honeywell_scanner: ^7.0.0
+  honeywell_scanner: ^8.0.1
 
 dev_dependencies:
   flutter_test:

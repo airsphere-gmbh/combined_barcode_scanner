@@ -13,6 +13,13 @@ analyzer:
     - '**.mocks.dart'
     - 'lib/util/license.dart'
     - 'test/coverage_helper_test.dart'
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 
 linter:
   rules:
